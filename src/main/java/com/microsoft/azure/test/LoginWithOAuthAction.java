@@ -32,7 +32,7 @@ public class LoginWithOAuthAction extends AnAction {
         for (Tenant tenant : tenants) {
             NotificationGroupManager.getInstance()
                 .getNotificationGroup("Azure Notification Group")
-                .createNotification(tenant.innerModel().displayName(), NotificationType.ERROR)
+                .createNotification(tenant.innerModel().displayName(), NotificationType.INFORMATION)
                 .notify(e.getProject());
             String tid = tenant.tenantId();
             if (tenant.tenantId().endsWith("8c07b7d8-d6fa-4e5b-be42-c1a09b2fa19f")) {
