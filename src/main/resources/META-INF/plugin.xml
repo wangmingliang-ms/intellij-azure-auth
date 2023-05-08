@@ -1,0 +1,32 @@
+<idea-plugin>
+	<id>com.microsoft.azure.test.auth</id>
+	<name>Azure Auth test</name>
+	<version>0.1</version>
+	<vendor email="wangmi@microsoft.com" url="https://github.com/parrt/bicep-jetbrains-plugin">Microsoft</vendor>
+	<description>
+		<![CDATA[
+			<p>Azure Auth test</p>
+			<p>Azure Auth test</p>
+			<p>Azure Auth test</p>
+			<p>Azure Auth test</p>
+			<p>Azure Auth test</p>
+		]]>
+	</description>
+
+	<change-notes>
+		<![CDATA[
+        ]]>
+	</change-notes>
+
+	<!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
+	<idea-version since-build="223"/> <!-- requires 13.x, 14.x, 15.x -->
+	<actions>
+		<action id="OAuth2" class="com.microsoft.azure.test.LoginWithOAuthAction" text="Login With OAuth2">
+			<add-to-group group-id="ToolsMenu" anchor="last"/>
+		</action>
+	</actions>
+	<extensions defaultExtensionNs="com.intellij">
+		<notificationGroup id="Azure Notification Group"
+						   displayType="BALLOON"/>
+	</extensions>
+</idea-plugin>
