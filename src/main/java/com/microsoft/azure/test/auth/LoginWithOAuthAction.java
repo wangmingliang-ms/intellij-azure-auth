@@ -1,4 +1,4 @@
-package com.microsoft.azure.test;
+package com.microsoft.azure.test.auth;
 
 import com.azure.core.credential.TokenCredential;
 import com.azure.core.management.profile.AzureProfile;
@@ -15,12 +15,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
-import static com.microsoft.azure.test.AzureIdentityExample.environment;
-import static com.microsoft.azure.test.AzureIdentityExample.getTenantTokenCredential;
-import static com.microsoft.azure.test.AzureIdentityExample.listSubscriptions;
-import static com.microsoft.azure.test.AzureIdentityExample.listTenants;
-import static com.microsoft.azure.test.AzureIdentityExample.signWithOAuth;
-import static com.microsoft.azure.test.AzureIdentityExample.tenantId7d;
+import static com.microsoft.azure.test.auth.AzureIdentityExample.environment;
+import static com.microsoft.azure.test.auth.AzureIdentityExample.getTenantTokenCredential;
+import static com.microsoft.azure.test.auth.AzureIdentityExample.listSubscriptions;
+import static com.microsoft.azure.test.auth.AzureIdentityExample.listTenants;
+import static com.microsoft.azure.test.auth.AzureIdentityExample.signWithOAuth;
+import static com.microsoft.azure.test.auth.AzureIdentityExample.tenantId7d;
 
 public class LoginWithOAuthAction extends AnAction {
     @Override

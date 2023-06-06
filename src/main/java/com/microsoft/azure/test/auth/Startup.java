@@ -1,4 +1,4 @@
-package com.microsoft.azure.test;
+package com.microsoft.azure.test.auth;
 
 
 import com.intellij.ide.AppLifecycleListener;

@@ -3,7 +3,7 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
 
-package com.microsoft.azure.test;
+package com.microsoft.azure.test.auth;
 
 import com.azure.core.credential.AccessToken;
 import com.azure.core.credential.SimpleTokenCache;
@@ -12,6 +12,7 @@ import com.azure.core.credential.TokenRequestContext;
 import com.azure.core.http.policy.FixedDelay;
 import com.azure.core.http.policy.HttpLogDetailLevel;
 import com.azure.core.http.policy.RetryPolicy;
+import com.azure.core.http.rest.PagedIterable;
 import com.azure.core.management.AzureEnvironment;
 import com.azure.core.management.profile.AzureProfile;
 import com.azure.identity.AzureCliCredentialBuilder;
@@ -28,6 +29,7 @@ import com.azure.identity.implementation.MsalToken;
 import com.azure.identity.implementation.util.ScopeUtil;
 import com.azure.resourcemanager.appservice.AppServiceManager;
 import com.azure.resourcemanager.resources.ResourceManager;
+import com.azure.resourcemanager.resources.models.Subscription;
 import com.azure.resourcemanager.resources.models.Tenant;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +47,7 @@ import java.util.stream.Collectors;
 public class AzureIdentityExample {
     static final String tenantIdVs = "89079aa2-8a7f-42b5-aea6-212a757c0299"; // Visual Studio Enterprise Subscription
     static final String subscriptionIdVs = "7b6e5a3d-921c-4518-9d29-aa28f1c4bcb7"; // Visual Studio Enterprise Subscription
-    static final String tenantId7d = "72f988bf-86f1-41af-91ab-2d7cd011db47"; // Java Tooling Tests with TTL = 7 Days
+    public static final String tenantId7d = "72f988bf-86f1-41af-91ab-2d7cd011db47"; // Java Tooling Tests with TTL = 7 Days
     static final String subscriptionId7d = "685ba005-af8d-4b04-8f16-a7bf38b2eb5a"; // Java Tooling Tests with TTL = 7 Days
     static final String tenantId = tenantIdVs;
     static final String subscriptionId = subscriptionIdVs;
@@ -84,7 +86,7 @@ public class AzureIdentityExample {
         return authenticated.tenants().list().stream().collect(Collectors.toList());
     }
 
-    public static void listSubscriptions(TokenCredential credential, AzureProfile azureProfile) {
+    public static List<Subscription> listSubscriptions(TokenCredential credential, AzureProfile azureProfile) {
         ResourceManager.Authenticated authenticated = ResourceManager.configure()
             .withLogLevel(HttpLogDetailLevel.HEADERS)
             .withPolicy((httpPipelineCallContext, httpPipelineNextPolicy) -> {
@@ -94,7 +96,9 @@ public class AzureIdentityExample {
             })
             .withRetryPolicy(new RetryPolicy(new FixedDelay(0, Duration.ofSeconds(0))))
             .authenticate(credential, azureProfile);
-        log.warn("subscriptions:" + authenticated.subscriptions().list().stream().count());
+        final PagedIterable<Subscription> list = authenticated.subscriptions().list();
+        log.warn("subscriptions:" + list.stream().count());
+        return list.stream().toList();
     }
 
     public static void listWebApps(TokenCredential credential, AzureProfile azureProfile) {
